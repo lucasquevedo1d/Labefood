@@ -7,7 +7,7 @@ width: 100%;
 `
 export const Main = styled.div`
 width: 100%;
-height: 80vh;
+min-height: 100vh;
 display: flex;
 flex-direction: column;
 align-items: center;

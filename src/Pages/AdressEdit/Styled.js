@@ -24,7 +24,7 @@ form{
 export const Form = styled.form`
 display: flex;
 flex-direction: column;
-height: 50%;
+min-height: 50%;
 width: 80%;
 justify-content: space-evenly;
 `

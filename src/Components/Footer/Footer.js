@@ -1,16 +1,15 @@
-
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { goToCart, goToFeed, goToProfile } from "../../Routes/Coordinator"
 import { useNavigate } from "react-router-dom"
-import HomeIcon from '@mui/icons-material/Home';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import PersonIcon from '@mui/icons-material/Person';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { ContainerCardFooter } from "./Styled";
 export const Footer = () =>{
     const naviagte = useNavigate()
     return <ContainerCardFooter>
-             <HomeIcon onClick={ () => goToFeed(naviagte)}/>
-             <AddShoppingCartIcon onClick={() => goToCart(naviagte)}/>
-             <PersonIcon onClick={() => goToProfile(naviagte)}/>   
+             <HomeOutlinedIcon onClick={ () => goToFeed(naviagte)}>Inicio</HomeOutlinedIcon>
+             <ShoppingCartOutlinedIcon onClick={() => goToCart(naviagte)}/>
+             <PersonOutlineOutlinedIcon onClick={() => goToProfile(naviagte)}/>   
         </ContainerCardFooter>
 }
 

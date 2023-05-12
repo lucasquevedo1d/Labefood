@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ButtonCart, CartConfig, CartInfo, EmptyCart, Form, InfoProfile, InfoRestaurant, Main, MainCart } from './Styled'
+import { ButtonCart, CartConfig, CartInfo, EmptyCart, Form, InfoProfile, InfoRestaurant, Main, MainCart, SpaceWords, TitlePayment } from './Styled'
 import { BASE_URL } from '../../Constants/Url'
 import { useRequestData } from '../../Hooks/useRequestData'
 import { Header } from '../../Components/Header/CardHeader'
@@ -104,7 +104,7 @@ const getProfile = async () =>{
   return (
     <Main>
       <MainCart >
-        <Header title={"Meu carrinho"}back={true}/>
+        <Header title={"Meu carrinho"}back={true} />
       </MainCart>
       <CartConfig>
         <InfoProfile>
@@ -114,9 +114,11 @@ const getProfile = async () =>{
         </CartConfig> 
         <InfoRestaurant>
           <ImageRestaurant src={restaurant.logoUrl}/>
+          <SpaceWords>
           <p>{restaurant.name}</p>
           <p>{restaurant.address}</p>
           <p>{restaurant.deliveryTime} min</p>
+          </SpaceWords>
         </InfoRestaurant>
         <CartInfo>
           {restaurant.shipping && cart.length > 0 ? cart.map((product)=>{
@@ -127,21 +129,19 @@ const getProfile = async () =>{
         />
           )
         }): 
-        <EmptyCart><p>Carrinho vazio :/</p> </EmptyCart>}
+        <EmptyCart><p>Carrinho vazio</p> </EmptyCart>}
         </CartInfo>
         
      
-      <div>
+      <SpaceWords>
         <p>Frete R$ {restaurant.shipping ? restaurant.shipping : 0}</p>
-      </div>
-      <div>
-        <p>Subtotal</p>
+          <p>Subtotal</p>
         <p>{fullPrice}</p>
-      </div>
+      </SpaceWords>
      
       
       <>
-        <h1>Forma de pagamento</h1>
+        <TitlePayment>Forma de pagamento</TitlePayment>
         <Form >
           {paymentMethod.map((key)=>{
             return(

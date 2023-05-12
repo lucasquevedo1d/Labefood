@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ContainerFeed = styled.div`
-height: auto;
+min-height: 100vh;
 `
 export const CardsRestaurants = styled.div`
 padding: 0 1rem;

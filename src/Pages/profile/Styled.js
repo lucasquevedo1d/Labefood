@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export const Main = styled.div`
-height: 100vh;
+min-height: 100vh;
 display: flex;
 flex-direction: column;
 font-family: 'Bebas Neue', cursive;
@@ -17,6 +17,7 @@ text-align: center;
 flex-direction: column;
 height: 100%;
 width: auto;
+margin-bottom: 270px;
 `
 export const InformPerson = styled.div`
 height: 20%;
@@ -24,8 +25,9 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 padding: -50px;
+margin-left: 70px;
 div:nth-child(1){
-    width: 80%;
+    width:80%;
     padding: 30px;
     display: flex;
     flex-direction:column;
@@ -37,29 +39,30 @@ div:nth-child(2){
     justify-content: space-evenly;
     align-items: center;
     cursor: pointer;
+    margin-right: 20px;
 }
 `
 export const AddressPerson = styled.div`
 height: 10%;
 background-color: gainsboro;
 display: flex;
-justify-content: space-around;
+justify-content: space-between;
 align-items: center;
 div:nth-child(1){
-    width: 80%;
-    padding: 10px;
+    width:80%;
+    padding: 30px;
     display: flex;
     flex-direction:column;
-    justify-content: space-around;
+    margin-left: 70px;
+
+    
 }
 div:nth-child(2){
-    height: 40%;
+    height: 20%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     cursor: pointer;
+    margin-right: 20px;
 }
-`
-export const HistoryShopping = styled.div`
-height: 70%;
 `

@@ -1,24 +1,22 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Footer } from '../../Components/Footer/Footer'
 import { Header } from '../../Components/Header/CardHeader'
 import { BASE_URL } from '../../Constants/Url'
 import { UseForm } from '../../Hooks/UseForm'
-import { goToProfile } from '../../Routes/Coordinator'
+import { goToFeed, goToProfile } from '../../Routes/Coordinator'
 import { ButtonProfileEdit, DivHeader, Form, InputMaterial, Main } from './Styled'
+import swal from 'sweetalert'
 
 const ProfileEdit = () => {
-    const { form, onChange, clean } = UseForm({
+ const { form, onchange, clean, setForm } = UseForm({
         "name": "",
         "email": "",
         "cpf": ""
     })
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [cpf, setCpf] = useState("")
+ 
     const navigate = useNavigate()
-    // const [profileEdit, setProfileEdit] = useState({})
     const editPerson = async () => {
         await axios.get(`${BASE_URL}/profile`, {
             headers: {
@@ -26,36 +24,30 @@ const ProfileEdit = () => {
             }
         })
             .then((res) => {
-                console.log(res.data.user)
-                setName(res.data.user.name)
-                setEmail(res.data.user.email)
-                setCpf(res.data.user.cpf)
+                setForm({
+                "name": res.data.user.name,
+                "email": res.data.user.email,
+                "cpf": res.data.user.cpf
+                })
             })
             .catch((err) => {
-                console.log(err.response)
+                swal(err.response.data.message)
             })
     }
 
     const editProfile = async () => {
-        const body = {
-            name,
-            email,
-            cpf,
-
-        }
-        await axios.put(`${BASE_URL}/profile`, body, {
+        await axios.put(`${BASE_URL}/profile`, form, {
             headers: {
                 auth: localStorage.getItem("token")
             }
 
         })
             .then((res) => {
-                console.log(res.data.user)
-                // setProfileEdit(res.data.user)
+                swal(`Cadastro atualizado com sucesso`)
                
             })
             .catch((err) => {
-                console.log(err.response)
+                swal(err.response.data.message)
             })
     }
 
@@ -65,10 +57,8 @@ const ProfileEdit = () => {
 
 
     const cpfMask = (value) => {
-        if (cpf && cpf) {
+        if (form.cpf && form.cpf) {
             return value
-
-
                 .replace(/\D/g, "")
                 .replace(/(\d{3})(\d)/, "$1.$2")
                 .replace(/(\d{3})(\d)/, "$1.$2")
@@ -85,7 +75,7 @@ const ProfileEdit = () => {
     return (
         <Main>
             
-            <Header title={"Editar"} back={true} />
+            <Header title={"Editar"} back={() => goToFeed(navigate)} />
         
             <Form onSubmit={onSubmitForm}>
                 <InputMaterial
@@ -94,8 +84,10 @@ const ProfileEdit = () => {
                     name='name'
                     placeholder='Name'
                     variant="outlined"
-                    onChange={((e) => setName(e.target.value))}
-                    value={name}
+                    onChange={onchange}
+                    value={form.name}
+                    margin='normal'
+
                 />
                 <InputMaterial
                     id="standard-basic"
@@ -103,9 +95,10 @@ const ProfileEdit = () => {
                     name='email'
                     placeholder='Email'
                     variant="outlined"
-                    onChange={((e) => setEmail(e.target.value))}
-                    value={email}
+                    onChange={onchange}
+                    value={form.email}
                     required
+                    margin='normal'
                 />
                 <InputMaterial
                     id="standard-basic"
@@ -113,13 +106,14 @@ const ProfileEdit = () => {
                     name='cpf'
                     placeholder='cpf'
                     variant="outlined"
-                    onChange={((e) => setCpf(e.target.value))}
-                    value={cpfMask(cpf)}
+                    onChange={onchange}
+                    value={cpfMask(form.cpf)}
                     required
+                    margin='normal'
                 />
 
-
-                <ButtonProfileEdit type='submit'>Salvar</ButtonProfileEdit>
+                    <br/>
+                <ButtonProfileEdit type='submit' sx={{mb:25}}>Salvar</ButtonProfileEdit>
             </Form>
             <Footer/>
         </Main>

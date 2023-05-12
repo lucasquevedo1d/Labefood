@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ContainerCardHeader = styled.div`
 width: 100%;
 border: 1px solid gainsboro;
-height: 3.75rem;
+min-height: 3.75rem;
 margin: 0.5rem 0;
 display: grid;
 grid-template-columns: 24px 1fr 24px;

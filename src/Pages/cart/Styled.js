@@ -9,7 +9,7 @@ font-family: 'Bebas Neue', cursive;
 `
 export const MainCart = styled.div`
 display: flex;
-height: 5%;
+height: 25%;
 justify-content: center;
 align-items: center;
 font-size: 2rem;
@@ -24,7 +24,7 @@ justify-content: space-between;
 `
 export const InfoProfile = styled.div`
 margin-top: 5px;
-height: 10%;
+height: 100px;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -38,10 +38,18 @@ display: flex;
 flex-direction: column;
 width: 100%;
 font-size: 1.2rem;
-margin: 10px;
+/* margin: 10px; */
 p:nth-child(1){
     color: red;
 }
+`
+export const SpaceWords = styled.div`
+margin: 15px;
+`
+
+export const TitlePayment = styled.h1`
+margin: auto;
+margin-bottom: 20px;
 `
 export const CartInfo = styled.div`
 margin-top:10px;

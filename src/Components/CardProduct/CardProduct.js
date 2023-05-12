@@ -17,7 +17,6 @@ export const CardProduct = ({ product, restaurant}) =>{
     } 
 
     const productInCart = cart.find((productCart) => productCart.id === product.id)
-    // console.log(productInCart)
     return <ContainerCardProducts>
         <ImageProduct src={product.photoUrl}/>
         <BoxInform>
