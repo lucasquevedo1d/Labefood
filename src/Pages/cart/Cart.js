@@ -7,9 +7,6 @@ import { CardProduct } from '../../Components/CardProduct/CardProduct'
 import { useGlobal } from '../../Global/GlobalStateContext'
 import axios from 'axios'
 import { ImageRestaurant } from '../../Components/CardRestaurants/Styled'
-import { goToFeed, goToLogin } from '../../Routes/Coordinator'
-import { useNavigate } from 'react-router-dom'
-import { Footer } from '../../Components/Footer/Footer'
 import swal from 'sweetalert'
 import { UseProtectPage } from '../../Hooks/UseProtectPage'
 import { LoadingCircular } from '../../Components/Loading/Loading'
@@ -32,7 +29,7 @@ const Cart = () => {
     }, 1700)
   },[])
 
-  
+
   const onchangePayment = (event) =>{
     setPayment(event.target.value)
     
@@ -65,7 +62,6 @@ const getProfile = async () =>{
   }
 })
   .then((res) =>{
-    console.log(res.data)
     setProfile(res.data)
   })
   .catch((err) =>{

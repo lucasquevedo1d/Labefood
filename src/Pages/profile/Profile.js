@@ -11,7 +11,6 @@ import swal from 'sweetalert'
 import { Linha } from '../../Components/CardHistoryOrder/styled'
 import CardHistoryOrder from '../../Components/CardHistoryOrder/CardHistoryOrder'
 import { UseProtectPage } from '../../Hooks/UseProtectPage'
-import { CircularProgress } from '@mui/material'
 import { LoadingCircular } from '../../Components/Loading/Loading'
 
 export const Profile = () => {
@@ -55,7 +54,6 @@ export const Profile = () => {
   })
 
   .then((res) =>{
-    console.log(res.data)
     setOrderHistory(res.data)
   })
 
