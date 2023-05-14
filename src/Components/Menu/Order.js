@@ -12,7 +12,10 @@ const Order = ({totalPrice, restaurantName}) => {
                 Pedido em andamento
             </Title>
             <RestaurantName>{restaurantName}</RestaurantName>
-            <TotalPrice>Subtotal R$ {totalPrice}</TotalPrice>
+            <TotalPrice>Subtotal {new Intl.NumberFormat('pt-BR', {
+          style:'currency',
+          currency:'BRL'
+        }).format(totalPrice)}</TotalPrice>
         </BoxInform>
     </OrderContainer>
     <OrderContainerSpace/>

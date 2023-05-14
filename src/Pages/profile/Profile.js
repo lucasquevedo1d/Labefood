@@ -10,8 +10,12 @@ import { Buttonlogout } from '../feed/Styled'
 import swal from 'sweetalert'
 import { Linha } from '../../Components/CardHistoryOrder/styled'
 import CardHistoryOrder from '../../Components/CardHistoryOrder/CardHistoryOrder'
+import { UseProtectPage } from '../../Hooks/UseProtectPage'
+import { CircularProgress } from '@mui/material'
+import { LoadingCircular } from '../../Components/Loading/Loading'
 
 export const Profile = () => {
+  UseProtectPage()
   const navigate = useNavigate()
 
   const logout = () => {
@@ -20,7 +24,15 @@ export const Profile = () => {
   }
   const [profilePerson, setProfilePerson] = useState({})
   const [orderHistory, setOrderHistory] = useState([])
-  console.log(orderHistory)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() =>{
+      setLoading(false)
+    }, 1700)
+  },[])
+
+
   const person = async () => {
     await axios.get(`${BASE_URL}/profile`, {
       headers: {
@@ -57,6 +69,8 @@ export const Profile = () => {
   }, [])
 
   return (
+        <>
+    {loading ? <LoadingCircular color="error"/>:
     <Main>
       <Header title={"Editar"} back={() => goToFeed(navigate)} />
       <Buttonlogout onClick={() => logout()}>Logout</Buttonlogout>
@@ -77,22 +91,27 @@ export const Profile = () => {
           </div>
           <div onClick={() => goToAdressEdit(navigate, profilePerson.user.id)}>Editar</div>
         </AddressPerson>
+        <br/>
+        <br/>
           <h3>Historico de pedidos</h3>
           <Linha/>
           <br/>
-          
-          {orderHistory.orders.map((index) =>{
+          <br/>
+          {orderHistory.orders && orderHistory.orders.length > 0 ? orderHistory.orders.map((index) =>{
             return (
             <CardHistoryOrder 
             restaurantName = {index.restaurantName}
             totalPrice = {index.totalPrice}
+            createdAt={index.createdAt}
             />
             )
-          })}
+          }): <p>Você ainda não realizou nenhum pedido</p>}
         
       </Information>
       <Footer />
     </Main>
+  }
+    </>
   )
 }
 

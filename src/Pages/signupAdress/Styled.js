@@ -14,7 +14,7 @@ flex-direction: column;
 align-items: center;
 font-family: 'Bebas Neue', cursive;
 form{
-    margin-top: 30px;
+    margin-top: 70px;
     display: flex;
     width: 90%;
     justify-content: space-evenly;
@@ -27,6 +27,7 @@ flex-direction: column;
 height: 50%;
 width: 80%;
 justify-content: space-evenly;
+
 `
 export const ButtonAdress=styled(Button)`
 &&{

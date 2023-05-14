@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { Header } from "../../Components/Header/CardHeader"
 import { Footer } from '../../Components/Footer/Footer';
 import swal from 'sweetalert';
+import { InputAdornment, OutlinedInput } from '@mui/material';
 
 
 const Signup = () => {
@@ -55,7 +56,9 @@ const Signup = () => {
   }
   return (
     <Main>
-      <Header title={"Cadastrar"} back={true} />
+      <Header back={true} />
+      <br/>
+      <h2>Cadastrar</h2>
       <Form onSubmit={onSubmitForm}>
         <InputMaterial
           id="standard-basic"
@@ -66,6 +69,7 @@ const Signup = () => {
           placeholder='Digite seu nome'
           onChange={onchange}
           value={form.name}
+          color='error'
         />
         <InputMaterial
           id="standard-basic"
@@ -77,6 +81,7 @@ const Signup = () => {
           onChange={onchange}
           value={form.email}
           required
+          color='error'
         />
         <InputMaterial
           id="standard-basic"
@@ -88,25 +93,31 @@ const Signup = () => {
           onChange={onchange}
           value={cpfMask(form.cpf)}
           required
+          color='error'
         />
 
-        <InputMaterial
+         <OutlinedInput
           id="standard-basic"
           type={showPassword ? "password" : "text"}
           name='password'
-          label="Senha"
           variant="outlined"
           placeholder='Minímo 6 caracteres'
           onChange={onchange}
           value={form.password}
-          inputProps={{ minLength: 6 }}
+          color='error'
+          endAdornment={
+            <InputAdornment position='end'>
+              <IconButton 
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+          label="Senha"
         />
-
-        <IconButton aria-label="toggle password visibility"
-          onClick={handleClickShowPassword}
-          edge="end"
-        >{showPassword ? <VisibilityOff /> : <Visibility />}
-        </IconButton>
         <ButtonSignup type='submit'>Cadastrar</ButtonSignup>
       </Form>
       <Footer />

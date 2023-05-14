@@ -8,7 +8,12 @@ export const CardRestaurant = ({restaurant}) =>{
        <NameRestaurant>{restaurant.name}</NameRestaurant>
        <BoxInformeTimePrice>
         <InformeTimePrice>Delivery: {restaurant.deliveryTime} min</InformeTimePrice>
-        <InformeTimePrice>Envio: {restaurant.shipping} R$</InformeTimePrice>
+        <InformeTimePrice>
+            Envio: {new Intl.NumberFormat('pt-BR', {
+          style:'currency',
+          currency:'BRL'
+        }).format(restaurant.shipping)}
+        </InformeTimePrice>
        </BoxInformeTimePrice>
         </ContainerCardRestaurant>
 }

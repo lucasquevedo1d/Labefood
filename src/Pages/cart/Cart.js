@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ButtonCart, CartConfig, CartInfo, EmptyCart, Form, InfoProfile, InfoRestaurant, Main, MainCart, SpaceWords, TitlePayment } from './Styled'
+import { ButtonCart, CartConfig, CartInfo, EmptyCart, Form, InfoProfile, InfoRestaurant, Linha, Main, MainCart, SpaceWords, TitlePayment } from './Styled'
 import { BASE_URL } from '../../Constants/Url'
 import { useRequestData } from '../../Hooks/useRequestData'
 import { Header } from '../../Components/Header/CardHeader'
@@ -10,17 +10,29 @@ import { ImageRestaurant } from '../../Components/CardRestaurants/Styled'
 import { goToFeed, goToLogin } from '../../Routes/Coordinator'
 import { useNavigate } from 'react-router-dom'
 import { Footer } from '../../Components/Footer/Footer'
+import swal from 'sweetalert'
+import { UseProtectPage } from '../../Hooks/UseProtectPage'
+import { LoadingCircular } from '../../Components/Loading/Loading'
+
 
 const Cart = () => {
+  UseProtectPage()
   const [payment, setPayment] = useState("")
   const [paymentMethod] = useState(["money", "creditCard"])
   const [fullPrice, setFullPrice] = useState(0)
   const { states, setters } = useGlobal()
   const { cart, restaurant,  } = states
-  const {setOrder} = setters
   const [profile, setProfile] = useState({})
-  const navigate = useNavigate()
- 
+  
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() =>{
+      setLoading(false)
+    }, 1700)
+  },[])
+
+  
   const onchangePayment = (event) =>{
     setPayment(event.target.value)
     
@@ -57,7 +69,7 @@ const getProfile = async () =>{
     setProfile(res.data)
   })
   .catch((err) =>{
-    console.log(err.response)
+    swal(err.data.response.message)
   })
 }
 
@@ -73,20 +85,18 @@ const getProfile = async () =>{
       }),
       paymentMethod:payment
     }
-    console.log(body)
+    
     await axios.post(`${BASE_URL}/restaurants/${restaurant.id}/order`, body,{
       headers:{
         auth: window.localStorage.getItem("token")
       }
     })
     .then((res)=>{
-      console.log(res.data)
       setters.setOrder(res.data)
       setters.setCart([])
     })
     .catch((err) =>{
-      console.log(err.response)
-      alert(err.response.message)
+      swal(err.response.data.message)
     })
   }
 
@@ -96,15 +106,16 @@ const getProfile = async () =>{
   },[])
 
   const onSubmitPlaceOrder = () =>{
-    console.log("entrei")
     placeOrder()
     
   }
   
   return (
+    <>
+    {loading ? <LoadingCircular color="error"/>:
     <Main>
       <MainCart >
-        <Header title={"Meu carrinho"}back={true} />
+        <Header title={"Meu carrinho"} back={true} />
       </MainCart>
       <CartConfig>
         <InfoProfile>
@@ -129,19 +140,30 @@ const getProfile = async () =>{
         />
           )
         }): 
-        <EmptyCart><p>Carrinho vazio</p> </EmptyCart>}
+        <EmptyCart>
+          <br/>
+          <p>Carrinho vazio</p> 
+          <br/>
+          </EmptyCart>}
         </CartInfo>
         
      
       <SpaceWords>
-        <p>Frete R$ {restaurant.shipping ? restaurant.shipping : 0}</p>
+        <p>Frete {restaurant.shipping ? new Intl.NumberFormat('pt-BR', {
+          style:'currency',
+          currency:'BRL'
+        }).format(restaurant.shipping) : 0}</p>
           <p>Subtotal</p>
-        <p>{fullPrice}</p>
+        <p>{new Intl.NumberFormat('pt-BR', {
+          style:'currency',
+          currency:'BRL'
+        }).format(fullPrice)}</p>
       </SpaceWords>
      
       
       <>
         <TitlePayment>Forma de pagamento</TitlePayment>
+        <Linha/>
         <Form >
           {paymentMethod.map((key)=>{
             return(
@@ -159,11 +181,14 @@ const getProfile = async () =>{
               </div>
             )
           })}
-      
+        <br/>
+        <br/>
         <ButtonCart onClick={() => onSubmitPlaceOrder()}>Confirmar</ButtonCart>
         </Form>
       </>
       </Main>
+    }
+      </>
   )
 }
 

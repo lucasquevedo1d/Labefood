@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ContainerFeed = styled.div`
-min-height: 100vh;
+min-height: 150vh;
 `
 export const CardsRestaurants = styled.div`
 padding: 0 1rem;
@@ -52,3 +52,4 @@ font-family: 'Bebas Neue', cursive;
 background-color: transparent;
 border: transparent;
 `
+

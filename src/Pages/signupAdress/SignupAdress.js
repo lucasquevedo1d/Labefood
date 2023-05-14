@@ -42,6 +42,7 @@ const SignupAdress = () => {
   return (
     <Main>
       <Header title={"Meu endereço"} back={() => goToFeed(navigate)} />
+      
       <Form onSubmit={onSubmitAdress}>
         <InputMaterial
           id="standard-basic"
@@ -53,6 +54,8 @@ const SignupAdress = () => {
           onChange={onchange}
           value={form.street}
           required
+          margin='normal'
+          color='error'
         />
         <InputMaterial
           id="standard-basic"
@@ -64,6 +67,8 @@ const SignupAdress = () => {
           onChange={onchange}
           value={form.number}
           required
+          margin='normal'
+          color='error'
         />
         <InputMaterial
           id="standard-basic"
@@ -74,6 +79,8 @@ const SignupAdress = () => {
           placeholder='Apto/Bloco'
           onChange={onchange}
           value={form.complement}
+          margin='normal'
+          color='error'
         />
         <InputMaterial
           id="standard-basic"
@@ -85,6 +92,8 @@ const SignupAdress = () => {
           onChange={onchange}
           value={form.neighbourhood}
           required
+          margin='normal'
+          color='error'
         />
         <InputMaterial
           id="standard-basic"
@@ -96,6 +105,8 @@ const SignupAdress = () => {
           onChange={onchange}
           value={form.city}
           required
+          margin='normal'
+          color='error'
         />
         <InputMaterial
           id="standard-basic"
@@ -107,6 +118,8 @@ const SignupAdress = () => {
           onChange={onchange}
           value={form.adress}
           required
+          margin='normal'
+          color='error'
         />
         <ButtonAdress type='submit'>Salvar</ButtonAdress>
       </Form>

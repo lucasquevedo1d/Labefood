@@ -38,7 +38,6 @@ display: flex;
 flex-direction: column;
 width: 100%;
 font-size: 1.2rem;
-/* margin: 10px; */
 p:nth-child(1){
     color: red;
 }
@@ -47,7 +46,7 @@ export const SpaceWords = styled.div`
 margin: 15px;
 `
 
-export const TitlePayment = styled.h1`
+export const TitlePayment = styled.h3`
 margin: auto;
 margin-bottom: 20px;
 `
@@ -58,7 +57,7 @@ flex-direction: column;
 width: 100%;
 `
 export const EmptyCart = styled.div`
-font-size: 2rem;
+font-size: 1.5rem;
 text-align: center;
 color: red;
 `
@@ -92,7 +91,7 @@ div{
     margin: 5px;
 }
 label{
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     text-transform: uppercase;
 }
 input{
@@ -112,4 +111,13 @@ export const ButtonCart=styled(Button)`
         color:black
     }
 }
+`
+
+export const Linha = styled.div`
+width: 20.5rem;
+height: 0.063rem;
+margin: auto;
+margin-top: -20px;
+margin-bottom: 10px;
+border: solid 1px;
 `

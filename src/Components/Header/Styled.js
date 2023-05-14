@@ -19,3 +19,17 @@ text-align: center;
 grid-column-start: 2;
 align-items: center;
 `
+
+export const ContainerCardHeaderFeed = styled.div`
+width: 100%;
+border: 1px solid gainsboro;
+min-height: 3.75rem;
+margin: 0.5rem 0;
+display: grid;
+justify-items: center;
+padding: 0 1rem;
+align-items: center;
+`
+export const Logo = styled.img`
+margin: auto;
+`

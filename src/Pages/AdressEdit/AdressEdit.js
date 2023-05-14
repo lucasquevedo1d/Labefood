@@ -7,8 +7,10 @@ import { BASE_URL } from '../../Constants/Url'
 import { UseForm } from '../../Hooks/UseForm'
 import { goToProfile } from '../../Routes/Coordinator'
 import { ButtonAdress, Form, InputMaterial, Main } from './Styled'
+import { UseProtectPage } from '../../Hooks/UseProtectPage'
 
 const AdressEdit = () => {
+  UseProtectPage()
   const navigate = useNavigate()
   const { form, onchange, clean, setForm } = UseForm({
     "street": "",

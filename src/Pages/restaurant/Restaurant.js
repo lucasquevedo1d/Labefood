@@ -1,19 +1,29 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { BASE_URL } from "../../Constants/Url"
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { CardRestaurant, Category, ContainerRestaurant, SectionProductByCategory } from './Styled'
 import { CardRestaurantDetails } from '../../Components/CardRestaurantDetails/CardRestaurantDetails'
 import { CardProduct } from '../../Components/CardProduct/CardProduct'
 import { Header } from '../../Components/Header/CardHeader'
-import { goToCart } from '../../Routes/Coordinator'
 import { Footer } from '../../Components/Footer/Footer'
+import { UseProtectPage } from '../../Hooks/UseProtectPage'
+import swal from 'sweetalert'
+import { LoadingCircular } from '../../Components/Loading/Loading'
 
 const Restaurant = () => {
-  const navigate = useNavigate()
+  UseProtectPage()
   const { restaurantId } = useParams()
   const [restaurant, setRestaurant] = useState({})
   const [categories, setCategories] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() =>{
+      setLoading(false)
+    }, 1700)
+  },[])
+
 
   const getRestaurantId = () => {
     axios.get(`${BASE_URL}/restaurants/${restaurantId}`, {
@@ -26,7 +36,7 @@ const Restaurant = () => {
        
       })
       .catch((err) => {
-        console.log(err.response)
+        swal(err.response.data.message)
       })
   }
 
@@ -45,6 +55,9 @@ const Restaurant = () => {
     }
   },[restaurant])
   return (
+    <>
+        {loading ? <LoadingCircular color="error"/>:
+
     <ContainerRestaurant>
       <Header title={"Restaurante"} back={true} />
       <CardRestaurant>
@@ -66,8 +79,12 @@ const Restaurant = () => {
           })
         }
       </CardRestaurant>
+      <br/>
+      <br/>
       <Footer/>
     </ContainerRestaurant>
+  }
+    </>
   )
 }
 

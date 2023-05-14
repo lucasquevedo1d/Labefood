@@ -8,15 +8,28 @@ import { UseForm } from '../../Hooks/UseForm'
 import { goToFeed, goToProfile } from '../../Routes/Coordinator'
 import { ButtonProfileEdit, DivHeader, Form, InputMaterial, Main } from './Styled'
 import swal from 'sweetalert'
+import { UseProtectPage } from '../../Hooks/UseProtectPage'
+import { useState } from 'react'
+import { LoadingCircular } from '../../Components/Loading/Loading'
 
 const ProfileEdit = () => {
+    UseProtectPage()
+    const navigate = useNavigate()
+
  const { form, onchange, clean, setForm } = UseForm({
         "name": "",
         "email": "",
         "cpf": ""
     })
+
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+      setTimeout(() =>{
+        setLoading(false)
+      }, 1700)
+    },[])
  
-    const navigate = useNavigate()
     const editPerson = async () => {
         await axios.get(`${BASE_URL}/profile`, {
             headers: {
@@ -73,6 +86,8 @@ const ProfileEdit = () => {
 
     }
     return (
+        <>
+    {loading ? <LoadingCircular color="error"/>:
         <Main>
             
             <Header title={"Editar"} back={() => goToFeed(navigate)} />
@@ -117,6 +132,8 @@ const ProfileEdit = () => {
             </Form>
             <Footer/>
         </Main>
+     }
+        </>
     )
 }
 

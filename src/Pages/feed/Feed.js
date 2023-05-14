@@ -3,13 +3,15 @@ import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { CardRestaurant } from "../../Components/CardRestaurants/CardRestaurant"
 import { Footer } from "../../Components/Footer/Footer"
-import { Header } from "../../Components/Header/CardHeader"
 import Order from "../../Components/Menu/Order"
 import { BASE_URL } from '../../Constants/Url'
 import { useGlobal } from "../../Global/GlobalStateContext"
 import { goToLogin } from "../../Routes/Coordinator"
 import { ContainerFeed, CardsRestaurants, InputSearch, Menu, MenuItem, CardLogout, Buttonlogout } from "./Styled"
 import swal from 'sweetalert';
+import { HeaderFeed } from "../../Components/Header/HeaderFeed"
+import { UseProtectPage } from "../../Hooks/UseProtectPage"
+import { LoadingCircular } from "../../Components/Loading/Loading"
 
 const Feed = () => {
   const [restaurants, setRestaurants] = useState([])
@@ -19,8 +21,18 @@ const Feed = () => {
   const { setters, states } = useGlobal()
   const { setOrder } = setters
   const { order } = states
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() =>{
+      setLoading(false)
+    }, 1700)
+  },[])
+
 
   const navigate = useNavigate()
+  UseProtectPage()  
+
   const getRestaurants = () => {
 
     axios.get(`${BASE_URL}/restaurants`, {
@@ -59,7 +71,7 @@ const Feed = () => {
         }, expires - new Date().getTime())
       })
       .catch((err) => {
-        console.log(err.response)
+        swal(err.response.data.message)
       })
 
   }
@@ -97,8 +109,10 @@ const Feed = () => {
 
 
   return (
+    <>
+    {loading ? <LoadingCircular color="error"/>:
     <ContainerFeed key={restaurants.id}>
-      <Header title={"ifuture"} />
+      <HeaderFeed/>
       <CardsRestaurants>
         <CardLogout>
           <Buttonlogout onClick={() => logout()}>Logout</Buttonlogout>
@@ -123,8 +137,12 @@ const Feed = () => {
         {restaurantsFilter}
       </CardsRestaurants>
       {order && <Order restaurantName={order.restaurantName} totalPrice={order.totalPrice} />}
+      <br/>
+      <br/>
       <Footer />
     </ContainerFeed>
+    }
+    </>
   )
 }
 

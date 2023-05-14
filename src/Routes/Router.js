@@ -20,7 +20,7 @@ export const Router = () =>{
             <Route path="/feed" element={<Feed/>}/>
             <Route path="/feed/:restaurantId" element={<Restaurant/>} />
             <Route path="/profile" element={<Profile/>}/>
-            <Route path="/profile" element={<ProfileEdit/>}/>
+            <Route path="/profile/:id" element={<ProfileEdit/>}/>
             <Route path="/cart" element={<Cart></Cart>}/>
             
         </Routes>
