@@ -21,6 +21,7 @@ const Signup = () => {
     "password": ""
   })
 
+  
   const [showPassword, setShowPassword] = useState(false)
   const cpfMask = (value) => {
     return value
@@ -50,6 +51,18 @@ const Signup = () => {
         goToSignupAdress(navigate)
       })
       .catch((err) => {
+        if(form.password.length < 6){
+          return swal(`A senha deve ter no mínimo 6 caracteres`)
+        }
+
+        if(form.cpf.length < 11){
+          return swal(`O preencha o cpf corretamente`)
+        }
+
+        if(form.name.length < 4){
+          return swal(`O preencha o nome corretamente`)
+        }
+        
         swal(err.response.data.message)
         clean()
       })
@@ -62,7 +75,7 @@ const Signup = () => {
       <Form onSubmit={onSubmitForm}>
         <InputMaterial
           id="standard-basic"
-          type={'text'}
+          type={'name'}
           name='name'
           label="Nome"
           variant="outlined"
@@ -70,10 +83,11 @@ const Signup = () => {
           onChange={onchange}
           value={form.name}
           color='error'
+          required
         />
         <InputMaterial
           id="standard-basic"
-          type={'text'}
+          type={'email'}
           name='email'
           label="Email"
           variant="outlined"
@@ -105,6 +119,7 @@ const Signup = () => {
           onChange={onchange}
           value={form.password}
           color='error'
+          required
           endAdornment={
             <InputAdornment position='end'>
               <IconButton 

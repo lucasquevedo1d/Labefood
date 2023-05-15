@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { goToFeed } from '../../Routes/Coordinator'
 import { Header } from '../../Components/Header/CardHeader'
 import { Footer } from '../../Components/Footer/Footer'
+import swal from 'sweetalert'
 
 const SignupAdress = () => {
   const { form, onchange, clean } = UseForm({
@@ -31,7 +32,26 @@ const SignupAdress = () => {
         clean()
       })
       .catch((err) => {
-        console.log(err.response.data.message)
+        if(form.street < 3){
+          return swal(`Preencha o nome da rua`)
+        }
+
+        if(form.number < 2){
+          return swal(`Preencha o número`)
+        }
+
+        if(form.neighbourhood < 3){
+          return swal(`Preencha o nome do bairro`)
+        }
+
+        if(form.city < 3){
+          return swal(`Preencha o nome da cidade`)
+        }
+
+        if(form.state < 3){
+          return swal(`Preencha o nome do estado`)
+        }
+        swal(err.response.data.message)
       })
   }
 
