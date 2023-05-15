@@ -50,4 +50,4 @@ Projeto front-end tem como objetivo um site mobile-first, inspirado no app do If
 #### Styled-components
 #### Material-U
 
-## Link: https://labefood-lucasquevedo.surge.sh/
+## Link: https://labefoodquevedolucas.surge.sh/
